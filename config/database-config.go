@@ -19,10 +19,11 @@ func SetupDatabaseConnection() *gorm.DB {
 
 	dbUser := os.Getenv("DB_USER")
 	dbPass := os.Getenv("DB_PASS")
+	dbPort := os.Getenv("DB_PORT")
 	dbHost := os.Getenv("DB_HOST")
 	dbName := os.Getenv("DB_NAME")
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s sslmode=require TimeZone=Asia/Shanghai", dbUser, dbPass, dbHost, dbName)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s sslmode=require TimeZone=Asia/Shanghai", dbUser, dbPass, dbPort, dbHost, dbName)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
